@@ -1,0 +1,38 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #595959;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calculator-body{
+    background-color: black;
+    padding: 20px;
+    width: 480px;
+}
+
+.calculator-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.display-screen-container{
+    background-color: #ffff;
+    padding: 25px;
+}
+
+.ans-display, .input-display{
+    text-align: right;
+}
+
+button{
+    padding: 15px;
+}
