@@ -5,15 +5,28 @@ let equalsBtn = document.querySelector('.equals-btn');
 let operator = null;
 let operand1 = null;
 let operand2 = null;
+let justEvaluated = false;
 
 btnsContainer.addEventListener('click', (event) => {
     let target = event.target;
     let value = target.textContent;
 
+    
     if(target.classList.contains('digit')){
-        if(operator === null && inputDisplay.textContent === '0'){
+        //if next pressed button is a digit after pressing '=', start new computation
+        if(justEvaluated){
+        inputDisplay.textContent = value;
+        operand1 = null;
+        operand2 = null;
+        operator = null;
+        justEvaluated = false;
+        return;
+        }
+       
+        if(operator === null && inputDisplay.textContent === '0' && operand1 === null){
             inputDisplay.textContent = value;
         }
+        //handle getting second operand for chaining operations
         else if(operator !== null){
             if(operand2 === null){
                 inputDisplay.textContent = '';
@@ -26,6 +39,7 @@ btnsContainer.addEventListener('click', (event) => {
         }
     }
     else if(target.classList.contains('operator')){
+        //handle chaining multiple operations like 2+5-1
         if(operator && operand2){
             operand1 = operate(operator, operand1, operand2);
             inputDisplay.textContent = operand1;
@@ -35,6 +49,7 @@ btnsContainer.addEventListener('click', (event) => {
             operand1 = Number(inputDisplay.textContent);
         }
         operator = value;
+        justEvaluated = false;
     }
 });
 
@@ -74,4 +89,8 @@ function operate(operator, operand1, operand2){
 equalsBtn.addEventListener('click', () => {
     let result = operate(operator, operand1, operand2);
     inputDisplay.textContent = result;
+    operand1 = result;
+    operand2 = null;
+    operator = null;
+    justEvaluated = true;
 });
