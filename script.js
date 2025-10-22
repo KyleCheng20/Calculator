@@ -26,8 +26,15 @@ btnsContainer.addEventListener('click', (event) => {
         }
     }
     else if(target.classList.contains('operator')){
+        if(operator && operand2){
+            operand1 = operate(operator, operand1, operand2);
+            inputDisplay.textContent = operand1;
+            operand2 = null;
+        }
+        else{
+            operand1 = Number(inputDisplay.textContent);
+        }
         operator = value;
-        operand1 = Number(inputDisplay.textContent);
     }
 });
 
@@ -45,6 +52,9 @@ function multiply(a, b){
 }
 
 function divide(a, b){
+    if(b === 0){
+        return 'Error: division by 0';
+    }
     return a / b;
 }
 
