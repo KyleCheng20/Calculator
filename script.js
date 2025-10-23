@@ -65,6 +65,17 @@ btnsContainer.addEventListener('click', (event) => {
         justEvaluated = false;
     }
 
+    //handles the clear display
+    else if(target.classList.contains('clr-btn')){
+        operand1 = null;
+        operand2 = null;
+        operator = null;
+        justEvaluated = false;
+        lastOperand = null;
+        lastOperator = null;
+        inputDisplay.textContent = '0';
+    }
+
 });
 
 
