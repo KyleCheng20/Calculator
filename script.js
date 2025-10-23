@@ -43,6 +43,15 @@ btnsContainer.addEventListener('click', (event) => {
 
     //handles if button pressed is an operator
     else if(target.classList.contains('operator')){
+        //handles if the next button pressed is an operator after an '=' to allow for continuing operations with new operator
+        if(justEvaluated){
+            operator = value;
+            justEvaluated = false;
+            lastOperator = operator;
+            lastOperand = operand1;
+            return;
+        }
+
         //handle chaining multiple operations like 2+5-1
         if(operator && operand2){
             operand1 = operate(operator, operand1, operand2);
@@ -93,6 +102,9 @@ function operate(operator, operand1, operand2){
 
 equalsBtn.addEventListener('click', () => {
     if(!justEvaluated){
+        if(operand2 === null){      //allows for continuing operations after equals with a new operator
+            operand2 = operand1;
+        }
         let result = operate(operator, operand1, operand2);
         inputDisplay.textContent = result;
         lastOperand = operand2;
@@ -111,7 +123,3 @@ equalsBtn.addEventListener('click', () => {
         inputDisplay.textContent = operand1;
     }
 });
-
-//next feat: 10 + 10  = 20, then - 5 = 15, then the next button i press is an 
-//operator like + followed by an "=" button it should now start adding by 15 after
-//every "=" button 
