@@ -6,12 +6,14 @@ let operator = null;
 let operand1 = null;
 let operand2 = null;
 let justEvaluated = false;
+let lastOperand = null;
+let lastOperator = null;
 
 btnsContainer.addEventListener('click', (event) => {
     let target = event.target;
     let value = target.textContent;
 
-    
+    //handles if button pressed is a digit
     if(target.classList.contains('digit')){
         //if next pressed button is a digit after pressing '=', start new computation
         if(justEvaluated){
@@ -38,6 +40,8 @@ btnsContainer.addEventListener('click', (event) => {
             inputDisplay.textContent += value;
         }
     }
+
+    //handles if button pressed is an operator
     else if(target.classList.contains('operator')){
         //handle chaining multiple operations like 2+5-1
         if(operator && operand2){
@@ -51,6 +55,7 @@ btnsContainer.addEventListener('click', (event) => {
         operator = value;
         justEvaluated = false;
     }
+
 });
 
 
@@ -87,10 +92,26 @@ function operate(operator, operand1, operand2){
 }
 
 equalsBtn.addEventListener('click', () => {
-    let result = operate(operator, operand1, operand2);
-    inputDisplay.textContent = result;
-    operand1 = result;
-    operand2 = null;
-    operator = null;
-    justEvaluated = true;
+    if(!justEvaluated){
+        let result = operate(operator, operand1, operand2);
+        inputDisplay.textContent = result;
+        lastOperand = operand2;
+        lastOperator = operator;
+
+        operand1 = result;
+        operand2 = null;
+        operator = null;
+        justEvaluated = true;
+    }
+    
+
+    //handles chaining with pressing '=' button multiple times
+    else if(justEvaluated){
+        operand1 = operate(lastOperator, operand1, lastOperand);
+        inputDisplay.textContent = operand1;
+    }
 });
+
+//next feat: 10 + 10  = 20, then - 5 = 15, then the next button i press is an 
+//operator like + followed by an "=" button it should now start adding by 15 after
+//every "=" button 
