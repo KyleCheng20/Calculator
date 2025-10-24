@@ -76,6 +76,21 @@ btnsContainer.addEventListener('click', (event) => {
         inputDisplay.textContent = '0';
     }
 
+    //toggles the sign of a number
+    else if(target.classList.contains('sign-toggle-btn')){
+        let displayResult = Number(inputDisplay.textContent);
+
+        displayResult = -displayResult;
+        inputDisplay.textContent = displayResult;
+
+        if(operator === null){
+            operand1 = displayResult;
+        }
+        else{
+            operand2 = displayResult;
+        }
+    }
+
 });
 
 
