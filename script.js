@@ -91,6 +91,26 @@ btnsContainer.addEventListener('click', (event) => {
         }
     }
 
+    //deletes 1 digit from the display
+    else if(target.classList.contains('del-btn')){
+        //do nothing if we try to press 'del' after '='
+        if(justEvaluated){
+            return;
+        }
+
+        let displayArr = inputDisplay.textContent.split('');
+        displayArr.pop();
+        let displayResult = Number(displayArr.join(''));
+        inputDisplay.textContent = displayResult || '0';
+
+        if(operator === null){
+            operand1 = displayResult;
+        }
+        else{
+            operand2 = displayResult;
+        }
+    }
+
 });
 
 
