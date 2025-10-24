@@ -1,6 +1,7 @@
 let btnsContainer = document.querySelector('.buttons-container');
 let inputDisplay = document.querySelector('.input-display');
 let equalsBtn = document.querySelector('.equals-btn');
+let ansDisplay = document.querySelector('.ans-display');
 
 let operator = null;
 let operand1 = null;
@@ -8,6 +9,7 @@ let operand2 = null;
 let justEvaluated = false;
 let lastOperand = null;
 let lastOperator = null;
+let ansValue = 0;
 
 btnsContainer.addEventListener('click', (event) => {
     let target = event.target;
@@ -111,6 +113,16 @@ btnsContainer.addEventListener('click', (event) => {
         }
     }
 
+    else if(target.classList.contains('ans-btn')){
+        if(operator === null){
+            operand1 = ansValue;
+            inputDisplay.textContent = operand1;
+        }
+        else{
+            operand2 = ansValue;
+            inputDisplay.textContent = operand2;
+        }
+    }
 });
 
 
@@ -153,6 +165,8 @@ equalsBtn.addEventListener('click', () => {
         }
         let result = operate(operator, operand1, operand2);
         inputDisplay.textContent = result;
+        ansDisplay.textContent = `Ans = ${result}`;
+        ansValue = result;
         lastOperand = operand2;
         lastOperator = operator;
 
@@ -162,10 +176,11 @@ equalsBtn.addEventListener('click', () => {
         justEvaluated = true;
     }
     
-
     //handles chaining with pressing '=' button multiple times
     else if(justEvaluated){
         operand1 = operate(lastOperator, operand1, lastOperand);
         inputDisplay.textContent = operand1;
+        ansDisplay.textContent = `Ans = ${operand1}`;
+        ansValue = operand1;
     }
 });
