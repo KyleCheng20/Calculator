@@ -113,6 +113,7 @@ btnsContainer.addEventListener('click', (event) => {
         }
     }
 
+    //stores previous calculation answer for later computations if needed
     else if(target.classList.contains('ans-btn')){
         if(operator === null){
             operand1 = ansValue;
@@ -121,6 +122,33 @@ btnsContainer.addEventListener('click', (event) => {
         else{
             operand2 = ansValue;
             inputDisplay.textContent = operand2;
+        }
+    }
+
+    else if(target.classList.contains('decimal-btn')){
+        if(justEvaluated){
+            inputDisplay.textContent = '0.';
+            operand1 = null;
+            operand2 = null;
+            operator = null;
+            justEvaluated = false;
+        }
+
+        if(operator === null){
+            if(!inputDisplay.textContent.includes('.')){
+                inputDisplay.textContent += '.';
+                operand1 = Number(inputDisplay.textContent);
+            }
+        }
+        else{
+            if(operand2 === null){
+                inputDisplay.textContent = '0.';
+                operand2 = 0;
+            }
+            else if(!inputDisplay.textContent.includes('.')){
+                inputDisplay.textContent += '.';
+                operand2 = Number(inputDisplay.textContent);
+            }
         }
     }
 });
@@ -184,3 +212,8 @@ equalsBtn.addEventListener('click', () => {
         ansValue = operand1;
     }
 });
+
+//next fix: when division by zero and get error message, ans display should not save
+//and display teh error message.
+
+//next feat: allow keyboard support by allowing users to type digits on keyboard like 1, 2, etc
