@@ -192,6 +192,15 @@ equalsBtn.addEventListener('click', () => {
             operand2 = operand1;
         }
         let result = operate(operator, operand1, operand2);
+
+        if(result === 'Error: division by 0'){
+            inputDisplay.textContent = result;
+            operand1 = null;
+            operand2 = null;
+            operator = null;
+            justEvaluated = true;
+            return;
+        }
         inputDisplay.textContent = result;
         ansDisplay.textContent = `Ans = ${result}`;
         ansValue = result;
@@ -208,8 +217,10 @@ equalsBtn.addEventListener('click', () => {
     else if(justEvaluated){
         operand1 = operate(lastOperator, operand1, lastOperand);
         inputDisplay.textContent = operand1;
-        ansDisplay.textContent = `Ans = ${operand1}`;
-        ansValue = operand1;
+        if(operand1 !== 'Error: division by 0'){
+            ansDisplay.textContent = `Ans = ${operand1}`;
+            ansValue = operand1;
+        }
     }
 });
 
