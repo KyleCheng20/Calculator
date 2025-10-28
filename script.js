@@ -11,6 +11,49 @@ let lastOperand = null;
 let lastOperator = null;
 let ansValue = 0;
 
+document.addEventListener('keydown', (event) => {
+    let key = event.key;
+
+    //digit key pressed
+    if(key >= '0' && key <= '9'){
+        document.querySelector(`.num-${key}-btn`).click();
+    }
+    //operator key pressed
+    else if(key === '+'){
+        document.querySelector('.add-btn').click();
+    }
+    else if(key === '-'){
+        document.querySelector('.subtract-btn').click();
+    }
+    else if(key === '*'){
+        document.querySelector('.multiply-btn').click();
+    }
+    else if(key === '/'){
+        document.querySelector('.divide-btn').click();
+    }
+    //equals button pressed
+    else if(key === 'Enter' || key === '='){
+        document.querySelector('.equals-btn').click();
+    }
+    //backspace button pressed
+    else if(key === 'Backspace'){
+        if(justEvaluated){
+            document.querySelector('.clr-btn').click();
+            justEvaluated = false;
+            operand1 = null;
+            return;
+        }
+        if(inputDisplay.textContent === '0'){
+            return;
+        }
+        document.querySelector('.del-btn').click();
+    }
+    //decimal button pressed
+    else if(key === '.'){
+        document.querySelector('.decimal-btn').click();
+    }
+});
+
 btnsContainer.addEventListener('click', (event) => {
     let target = event.target;
     let value = target.textContent;
@@ -96,20 +139,26 @@ btnsContainer.addEventListener('click', (event) => {
     //deletes 1 digit from the display
     else if(target.classList.contains('del-btn')){
         //do nothing if we try to press 'del' after '='
-        if(justEvaluated){
+        if(justEvaluated || inputDisplay.textContent === '0'){
             return;
         }
 
-        let displayArr = inputDisplay.textContent.split('');
-        displayArr.pop();
-        let displayResult = Number(displayArr.join(''));
-        inputDisplay.textContent = displayResult || '0';
+        inputDisplay.textContent = inputDisplay.textContent.slice(0, -1) || '0';
 
         if(operator === null){
-            operand1 = displayResult;
+            if(inputDisplay.textContent === '0'){
+                operand1 = null;
+            }else{
+                operand1 = Number(inputDisplay.textContent);
+            }
         }
         else{
-            operand2 = displayResult;
+            if(inputDisplay.textContent === '0'){
+                operand2 = null;
+            }
+            else{
+                operand2 = Number(inputDisplay.textContent);
+            }
         }
     }
 
@@ -223,8 +272,3 @@ equalsBtn.addEventListener('click', () => {
         }
     }
 });
-
-//next fix: when division by zero and get error message, ans display should not save
-//and display teh error message.
-
-//next feat: allow keyboard support by allowing users to type digits on keyboard like 1, 2, etc
