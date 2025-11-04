@@ -2,6 +2,7 @@ let btnsContainer = document.querySelector('.buttons-container');
 let inputDisplay = document.querySelector('.input-display');
 let equalsBtn = document.querySelector('.equals-btn');
 let ansDisplay = document.querySelector('.ans-display');
+let operatorBtns = document.querySelectorAll('.operator');
 
 let operator = null;
 let operand1 = null;
@@ -10,6 +11,38 @@ let justEvaluated = false;
 let lastOperand = null;
 let lastOperator = null;
 let ansValue = 0;
+
+function add(a, b){
+    return a + b;
+}
+
+function subtract(a, b){
+    return a - b;
+}
+
+function multiply(a, b){
+    return a * b;
+}
+
+function divide(a, b){
+    if(b === 0){
+        return 'Error: division by 0';
+    }
+    return a / b;
+}
+
+function operate(operator, operand1, operand2){
+    switch(operator){
+        case '+':
+            return add(operand1, operand2);
+        case '-':
+            return subtract(operand1, operand2);
+        case 'x':
+            return multiply(operand1, operand2);
+        case '➗':
+            return divide(operand1, operand2);
+    }
+}
 
 document.addEventListener('keydown', (event) => {
     let key = event.key;
@@ -119,6 +152,10 @@ btnsContainer.addEventListener('click', (event) => {
         lastOperand = null;
         lastOperator = null;
         inputDisplay.textContent = '0';
+
+        operatorBtns.forEach(btn => {
+            btn.classList.remove('selected');
+        });
     }
 
     //toggles the sign of a number
@@ -202,39 +239,6 @@ btnsContainer.addEventListener('click', (event) => {
     }
 });
 
-
-function add(a, b){
-    return a + b;
-}
-
-function subtract(a, b){
-    return a - b;
-}
-
-function multiply(a, b){
-    return a * b;
-}
-
-function divide(a, b){
-    if(b === 0){
-        return 'Error: division by 0';
-    }
-    return a / b;
-}
-
-function operate(operator, operand1, operand2){
-    switch(operator){
-        case '+':
-            return add(operand1, operand2);
-        case '-':
-            return subtract(operand1, operand2);
-        case 'x':
-            return multiply(operand1, operand2);
-        case '➗':
-            return divide(operand1, operand2);
-    }
-}
-
 equalsBtn.addEventListener('click', () => {
     if(!justEvaluated){
         if(operand2 === null){      //allows for continuing operations after equals with a new operator
@@ -271,4 +275,17 @@ equalsBtn.addEventListener('click', () => {
             ansValue = operand1;
         }
     }
+
+    operatorBtns.forEach(btn => {
+        btn.classList.remove('selected');
+    });
+});
+
+operatorBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        operatorBtns.forEach(oldBtn => {
+            oldBtn.classList.remove('selected');
+        });
+        btn.classList.add('selected');
+    });
 });

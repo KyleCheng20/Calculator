@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'outfit';
+    src: url('./assets/fonts/Outfit/Outfit-VariableFont_wght.ttf');
+}
+
 *{
     padding: 0;
     margin: 0;
@@ -13,26 +18,140 @@ body{
     align-items: center;
 }
 
+main{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
 .calculator-body{
     background-color: black;
-    padding: 20px;
-    width: 480px;
+    padding: 25px;
+    border-radius: 25px;
 }
 
 .calculator-content{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
 }
 
 .display-screen-container{
     background-color: #ffff;
     padding: 25px;
+    width: 100%;
+    font-size: 25px;
+    font-family: 'outfit';
+    font-weight: 300;
+    border-radius: 5px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.input-display{
+    font-size: 35px;
+    font-weight: 300;
+}
+
+.ans-display{
+    font-size: 19px;
 }
 
 .ans-display, .input-display{
     text-align: right;
 }
 
+.buttons-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.buttons-container > div {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 button{
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    border: none;
     padding: 15px;
+    cursor: pointer;
+    background-color: #403f3f;
+    color: white;
+    font-family: 'outfit', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.digit:hover, .decimal-btn:hover{
+    background-color: #2b2b2b;
+}
+
+.operator{
+    background-color: #ffa32b;
+    font-size: 30px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.operator.selected{
+    background-color: #ffffff;
+    color: #ffa32b;
+}
+
+.equals-btn{
+    background-color: #ffa32b;
+    font-size: 30px;
+}
+
+.sign-toggle-btn{
+    font-size: 30px;
+}
+
+.util{
+    background-color: #949494;
+    transition: background-color 0.2s ease;
+}
+
+.util:hover{
+    background-color: #6e6e6e;
+}
+
+.clr-btn{
+    background-color: #ff4a26;
+    transition: background-color 0.2s ease;
+}
+
+.clr-btn:hover{
+    background-color: #ffffff;
+    color: #ff4a26;
+}
+
+footer{
+    font-family: 'outfit', sans-serif;
+    color: #ffffff;
+    font-size: 18px;
+    background-color: #2e2e2e;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+}
+
+footer a{
+    text-decoration: none;
+    color: #ffa32b;
+    transition: 0.2s ease;
+}
+
+footer a:hover{
+    color: #ffffff;
 }
