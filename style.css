@@ -103,14 +103,30 @@ button{
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.operator:hover {
+  background-color: #ffffff;
+  color: #ffa32b;
+}
+
 .operator.selected{
     background-color: #ffffff;
     color: #ffa32b;
 }
 
+.divide-btn, .subtract-btn, .add-btn{
+    font-size: 40px;
+}
+
 .equals-btn{
     background-color: #ffa32b;
-    font-size: 30px;
+    color: #ffffff;
+    font-size: 40px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.equals-btn:hover {
+  background-color: #ffffff;
+  color: #ffa32b;
 }
 
 .sign-toggle-btn{
